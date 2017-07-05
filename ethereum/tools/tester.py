@@ -10,6 +10,7 @@ from ethereum.common import verify_execution_results, mk_block_from_prevstate, s
 from ethereum.meta import make_head_candidate
 from ethereum.abi import ContractTranslator
 import rlp
+
 # Initialize accounts
 accounts = []
 keys = []
@@ -22,13 +23,8 @@ k0, k1, k2, k3, k4, k5, k6, k7, k8, k9 = keys[:10]
 a0, a1, a2, a3, a4, a5, a6, a7, a8, a9 = accounts[:10]
 
 base_alloc = {}
-minimal_alloc = {}
 for a in accounts:
     base_alloc[a] = {'balance': 10**18}
-for i in range(1, 9):
-    base_alloc[int_to_addr(i)] = {'balance': 1}
-    minimal_alloc[int_to_addr(i)] = {'balance': 1}
-minimal_alloc[accounts[0]] = {'balance': 10**18}
 
 # Initialize languages
 languages = {}
