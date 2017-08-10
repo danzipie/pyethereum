@@ -161,7 +161,7 @@ class State():
     def get_and_cache_account(self, address):
         if address in self.cache:
             return self.cache[address]
-        if self.executing_on_head:
+        if self.executing_on_head and False:
             try:
                 rlpdata = self.db.get(b'address:'+address)
             except KeyError:
@@ -258,8 +258,11 @@ class State():
         h, L, auxvars = snapshot
         three_touched = self.cache[THREE].touched if THREE in self.cache else False # Compatibility with weird geth+parity bug
         while len(self.journal) > L:
-            lastitem = self.journal.pop()
-            lastitem()
+            try:
+                lastitem = self.journal.pop()
+                lastitem()
+            except Exception as e:
+                print(e)
         if h != self.trie.root_hash:
             assert L == 0
             self.trie.root_hash = h
